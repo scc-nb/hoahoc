@@ -168,7 +168,12 @@ class QuizApp:
 
 
     def load_data(self):
-        if os.path.exists("hhp.pdf"):
+        # Ưu tiên đọc từ file JSON siêu nhẹ
+        if os.path.exists("data.json"):
+            with open("data.json", "r", encoding="utf-8") as f:
+                self.all_questions = json.load(f)
+        elif os.path.exists("hhp.pdf"):
+            # Dự phòng nếu chạy ở máy tính vẫn còn file PDF
             self.all_questions = parse_pdf_questions("hhp.pdf")
         else:
             self.all_questions = [
